@@ -28,8 +28,11 @@ class JWTAuthMiddleware:
         if query_string:
             try:
                 qs_dict = urllib.parse.parse_qs(query_string)
+                print(query_string)
                 if qs_dict[b'token']:
+                    print(qs_dict[b'token'])
                     jwt = qs_dict[b'token'][0]
+                    print(jwt)
                     decoded_payload = jwt_decode_handler(jwt)
                     user = User.objects.filter(username=decoded_payload['username'])
                     if user:

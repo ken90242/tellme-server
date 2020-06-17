@@ -31,7 +31,7 @@ from qa.views import QuestionViewset, AnswerViewset, VoteViewset
 from messenger.views import MessageViewset
 from search.views import ArticleSearchViewSet, UserSearchViewSet, NewsSearchViewSet, QuestionSearchViewSet
 from upload.views import FileUploadView, UserPictureUploadView
-from tellme.settings import MEDIA_ROOT
+from tellme.settings import MEDIA_ROOT, STATIC_ROOT
 
 router = DefaultRouter()
 router.register(r'news', NewsViewset, basename='news')
@@ -55,8 +55,9 @@ router.register(r'tags', TagViewset, basename='tags')
 urlpatterns = [
     url(r'^', include(router.urls)),
     path('admin/', admin.site.urls),
-    url(r'^docs/', include_docs_urls(title='TellMe API Doc')),
+    url(r'^docs/', include_docs_urls(title='TellMe API Doc', permission_classes=[])),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve, {"document_root": STATIC_ROOT}),
     path('^markdownx/', include('markdownx.urls')),
     url(r'^markdown/', csrf_exempt(MarkdonViewset.as_view())),
     url(r'^notification-markall/', MarkAllNotificationView.as_view()),

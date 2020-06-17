@@ -1,3 +1,5 @@
 media/
 static/
 tellme/settings.py
+*.pyc
+**/__pycache__/
